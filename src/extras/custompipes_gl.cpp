@@ -707,9 +707,11 @@ AtomicFirstPass(RpAtomic *atomic, int pass)
 			setLights(&lights);
 			setupDone = true;
 		}
-
+#ifdef PSP2
+		setMaterial(m->color, m->surfaceProps);
+#else
 		setMaterial(flags, m->color, m->surfaceProps);
-
+#endif
 		setTexture(0, m->texture);
 
 		drawInst(building->instHeader, inst);
