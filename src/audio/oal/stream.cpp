@@ -465,7 +465,9 @@ public:
 
 #ifdef AUDIO_OAL_USE_MPG123
 // fuzzy seek eliminates stutter when playing ADF but spams errors a lot (nothing breaks though)
-//#define MP3_USE_FUZZY_SEEK
+#ifdef PSP2
+#define MP3_USE_FUZZY_SEEK
+#endif
 
 class CMP3File : public IDecoder
 {
