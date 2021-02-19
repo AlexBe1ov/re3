@@ -53,7 +53,7 @@ long _dwOperatingSystemVersion;
 #include "MemoryMgr.h"
 
 // We found out that GLFW's keyboard input handling is still pretty delayed/not stable, so now we fetch input from X11 directly on Linux.
-#if !defined _WIN32 && !defined __APPLE__ && !defined __SWITCH__ // && !defined WAYLAND
+#if !defined _WIN32 && !defined __APPLE__ && !defined __SWITCH__ && !defined PSP2 // && !defined WAYLAND
 #define GET_KEYBOARD_INPUT_FROM_X11
 #endif
 
@@ -872,7 +872,6 @@ psSelectDevice()
 }
 
 #ifndef PSP2
-
 #ifndef GET_KEYBOARD_INPUT_FROM_X11
 void keypressCB(GLFWwindow* window, int key, int scancode, int action, int mods);
 #endif
@@ -997,6 +996,7 @@ void psPostRWinit(void)
 {
 	RwVideoMode vm;
 	RwEngineGetVideoModeInfo(&vm, GcurSelVM);
+#if !defined(PSP2)
 #ifndef GET_KEYBOARD_INPUT_FROM_X11
 	glfwSetKeyCallback(PSGLOBAL(window), keypressCB);
 #endif
@@ -1507,7 +1507,6 @@ keypressCB(GLFWwindow* window, int key, int scancode, int action, int mods)
 		else if (action == GLFW_PRESS) RsKeyboardEventHandler(rsKEYDOWN, &ks);
 	}
 }
-#endif
 
 #else
 
@@ -1767,6 +1766,7 @@ void checkKeyPresses()
 	}
 
 }
+#endif
 #endif
 
 // R* calls that in ControllerConfig, idk why
