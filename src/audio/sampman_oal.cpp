@@ -312,13 +312,13 @@ set_new_provider(int index)
 		alListenerfv(AL_ORIENTATION, orientation);
 		
 		alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED);
-		
+#ifndef PSP2
 		if ( alcIsExtensionPresent(ALDevice, (ALCchar*)ALC_EXT_EFX_NAME) )
 		{
 			alGenAuxiliaryEffectSlots(1, &ALEffectSlot);
 			alGenEffects(1, &ALEffect);
 		}
-
+#endif
 		alGenSources(MAX_STREAMS*2, ALStreamSources[0]);
 		for ( int32 i = 0; i < MAX_STREAMS; i++ )
 		{
@@ -338,7 +338,7 @@ set_new_provider(int index)
 		usingEAX = 0;
 		usingEAX3 = 0;
 		_usingEFX = false;
-		
+#ifndef PSP2
 		if ( !strcmp(&providers[index].name[strlen(providers[index].name) - strlen(" EAX3")], " EAX3") 
 				&& alcIsExtensionPresent(ALDevice, (ALCchar*)ALC_EXT_EFX_NAME) )
 		{
@@ -364,7 +364,7 @@ set_new_provider(int index)
 				DEV("EFX\n");
 			}
 		}
-		
+#endif
 		//SampleManager.SetSpeakerConfig(speaker_type);
 		
 		CChannel::InitChannels();
@@ -573,12 +573,12 @@ _FindMP3s(void)
 	char filepath[MAX_PATH*2];
 	int total_ms;
 	WIN32_FIND_DATA fd;
-	
+#ifndef PSP2
 	if (getcwd(_mp3DirectoryPath, MAX_PATH) == NULL) {
 		perror("getcwd: ");
 		return;
 	}
-	
+#endif
 	OutputDebugString("Finding MP3s...");
 	strcpy(path, _mp3DirectoryPath);
 	strcat(path, "\\MP3\\");
@@ -605,13 +605,14 @@ _FindMP3s(void)
 		FindClose(hFind);
 		return;
 	}
-
+#ifndef PSP2
 	if ( _ResolveLink(filepath, filepath) )
 	{
 		OutputDebugString("Resolving Link");
 		OutputDebugString(filepath);
 		bShortcut = true;
 	} else
+#endif
 		bShortcut = false;
 	
 	aStream[0] = new CStream(filepath, ALStreamSources[0], ALStreamBuffers[0]);
@@ -677,12 +678,15 @@ _FindMP3s(void)
 
 			if ( filepathlen > 0 )
 			{
+#ifndef PSP2
 				if ( _ResolveLink(filepath, filepath) )
 				{
 					OutputDebugString("Resolving Link");
 					OutputDebugString(filepath);
 					bShortcut = true;
-				} else {
+				} else
+#endif
+				{
 					bShortcut = false;
 					if (filepathlen > MAX_PATH) {
 						continue;
@@ -740,12 +744,14 @@ _FindMP3s(void)
 			
 			if ( filepathlen > 0 )
 			{
+#ifndef PSP2
 				if ( _ResolveLink(filepath, filepath) )
 				{
 					OutputDebugString("Resolving Link");
 					OutputDebugString(filepath);
 					bShortcut = true;
 				} else
+#endif
 					bShortcut = false;
 				
 				aStream[0] = new CStream(filepath, ALStreamSources[0], ALStreamBuffers[0]);

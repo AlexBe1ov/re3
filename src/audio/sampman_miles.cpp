@@ -263,7 +263,7 @@ U32 RadioHandlers[9];
 
 U32 WINAPI vfs_open_callback(char const* Filename, U32* FileHandle)
 {
-	*FileHandle = (U32)fopen(Filename, "rb");
+	*FileHandle = (U32)fcaseopen(Filename, "rb");
 
 	// couldn't they just use stricmp once? and strlen? this is very inefficient
 	if ((strcmp(Filename + strlen(Filename) - 4, ".adf") == 0) || (strcmp(Filename + strlen(Filename) - 4, ".ADF") == 0)) {
@@ -1027,7 +1027,7 @@ cSampleManager::Initialise(void)
 					strcpy(filepath, m_szCDRomRootPath);
 					strcat(filepath, StreamedNameTable[0]);
 					
-					FILE *f = fopen(filepath, "rb");
+					FILE *f = fcaseopen(filepath, "rb");
 					
 					if ( f )
 					{
@@ -1383,7 +1383,7 @@ cSampleManager::CheckForAnAudioFileOnCD(void)
 	strcpy(filepath, m_MiscomPath);
 	strcat(filepath, StreamedNameTable[STREAMED_SOUND_MISSION_COMPLETED4]);
 
-	FILE *f = fopen(filepath, "rb");
+	FILE *f = fcaseopen(filepath, "rb");
 
 	if ( f )
 	{
@@ -2335,11 +2335,11 @@ cSampleManager::InitialiseSampleBanks(void)
 {
 	int32 nBank = SFX_BANK_0;
 	
-	fpSampleDescHandle = fopen(SampleBankDescFilename, "rb");
+	fpSampleDescHandle = fcaseopen(SampleBankDescFilename, "rb");
 	if ( fpSampleDescHandle == NULL )
 		return false;
 	
-	fpSampleDataHandle = fopen(SampleBankDataFilename, "rb");
+	fpSampleDataHandle = fcaseopen(SampleBankDataFilename, "rb");
 	if ( fpSampleDataHandle == NULL )
 	{
 		fclose(fpSampleDescHandle);

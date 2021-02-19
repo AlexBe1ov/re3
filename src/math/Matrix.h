@@ -1,5 +1,9 @@
 #pragma once
-
+#ifdef PSP2
+extern "C"{
+#include <math_neon.h>
+};
+#endif
 class CMatrix
 {
 public:
@@ -93,6 +97,18 @@ public:
 	void SetRotateYOnly(float angle);
 	void SetRotateZOnly(float angle);
 	void SetRotateZOnlyScaled(float angle, float scale) {
+#ifdef PSP2
+		float cs[2];
+		sincosf_c(angle, cs);
+
+		rx = cs[1] * scale;
+		ry = cs[0] * scale;
+		rz = 0.0f;
+
+		fx = -cs[0] * scale;
+		fy = cs[1] * scale;
+		fz = 0.0f;
+#else
 		float c = Cos(angle);
 		float s = Sin(angle);
 
@@ -103,7 +119,7 @@ public:
 		fx = -s * scale;
 		fy = c * scale;
 		fz = 0.0f;
-
+#endif
 		ux = 0.0f;
 		uy = 0.0f;
 		uz = scale;

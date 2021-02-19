@@ -502,7 +502,11 @@ CMenuManager::CMenuManager()
 	DisplayComboButtonErrMsg = false;
 	m_PrefsDMA = 1;
 	OS_Language = LANG_ENGLISH;
+#ifdef PSP2
+	m_ControlMethod = CONTROL_CLASSIC;
+#else
 	m_ControlMethod = CONTROL_STANDARD;
+#endif
 #ifdef PC_PLAYER_CONTROLS
 	CCamera::m_bUseMouse3rdPerson = true;
 #else
@@ -3097,11 +3101,10 @@ CMenuManager::LoadSettings()
 #ifdef LOAD_INI_SETTINGS
 	if (LoadINISettings()) {
 		LoadINIControllerSettings();
-	} else {
-		// no re3.ini, create it
-		SaveINISettings();
-		SaveINIControllerSettings();
 	}
+	// if no reVC.ini, create it, or update it with new values
+	SaveINISettings();
+	SaveINIControllerSettings();
 #endif
 
 #ifdef FIX_BUGS

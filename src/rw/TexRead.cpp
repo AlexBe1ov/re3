@@ -185,12 +185,14 @@ GetGPUcaps(GPUcaps *caps)
 	caps->subplatform = 0;
 	caps->dxtSupport = 0;
 	// TODO: more later
+#ifndef PSP2
 #ifdef RW_GL3
 	caps->subplatform = rw::gl3::gl3Caps.gles;
 	caps->dxtSupport = rw::gl3::gl3Caps.dxtSupported;
 #endif
 #ifdef RW_D3D9
 	caps->dxtSupport = 1;	// TODO, probably
+#endif
 #endif
 }
 
@@ -391,7 +393,7 @@ CreateTxdImageForVideoCard()
 		return false;
 	}
 
-#ifdef RW_GL3
+#if defined(RW_GL3) && !defined(PSP2)
 	// so we can read back DXT with GLES
 	// only works for textures that are not yet loaded
 	// so let's hope that is the case for all
@@ -434,7 +436,7 @@ CreateTxdImageForVideoCard()
 					delete []buf;
 					delete pDir;
 					CStreaming::RemoveTxd(i);
-#ifdef RW_GL3
+#if defined(RW_GL3) && !defined(PSP2)
 					rw::gl3::needToReadBackTextures = false;
 #endif
 					return false;
@@ -469,7 +471,7 @@ CreateTxdImageForVideoCard()
 	RwStreamClose(img, nil);
 	delete []buf;
 
-#ifdef RW_GL3
+#if defined(RW_GL3) && !defined(PSP2)
 	rw::gl3::needToReadBackTextures = false;
 #endif
 

@@ -183,7 +183,7 @@ namespace linb
             {
                 /* Using C stream in a STL-like container, funny?
                  */
-                if(FILE* f = fopen(filename, "r"))
+                if(FILE* f = fcaseopen(filename, "r"))
                 {
                     key_container* keys = nullptr;
                     char_type buf[2048];
@@ -274,7 +274,7 @@ namespace linb
              */
             bool write_file(const char_type* filename)
             {
-                if(FILE* f = fopen(filename, "w"))
+                if(FILE* f = fcaseopen(filename, "w"))
                 {
                     bool first = true;
                     for(auto& sec : this->data)

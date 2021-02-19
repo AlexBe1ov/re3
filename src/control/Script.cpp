@@ -1,4 +1,5 @@
 #include "common.h"
+#include "crossplatform.h"
 
 #include "Script.h"
 #include "ScriptCommands.h"
@@ -2312,7 +2313,7 @@ void CTheScripts::Init()
 	CFileMgr::SetDirMyDocuments();
 	if (dbg_log)
 		fclose(dbg_log);
-	dbg_log = fopen("SCRDBG.LOG", "w");
+	dbg_log = fcaseopen("SCRDBG.LOG", "w");
 	static const char* init_msg = "Starting debug script log\n\n";
 	PrintToLog(init_msg);
 	CFileMgr::SetDir("");
@@ -2424,7 +2425,7 @@ void CTheScripts::Process()
 #ifdef USE_ADVANCED_SCRIPT_DEBUG_OUTPUT
 #if SCRIPT_LOG_FILE_LEVEL == 1
 	CFileMgr::SetDirMyDocuments();
-	dbg_log = fopen("SCRDBG.LOG", "w");
+	dbg_log = fcaseopen("SCRDBG.LOG", "w");
 	static const char* init_msg = "Starting debug script log\n\n";
 	PrintToLog(init_msg);
 	CFileMgr::SetDir("");

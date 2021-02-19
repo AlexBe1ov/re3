@@ -232,7 +232,6 @@ enum Config {
 	// not in master builds
 	#define VALIDATE_SAVE_SIZE
 
-	#define NO_MOVIES	// disable intro videos
 	#define DEBUGMENU
 #endif
 
@@ -246,10 +245,12 @@ enum Config {
 #endif
 
 #define FIX_BUGS		// fixes bugs that we've came across during reversing. You can undefine this only on release builds.
-//#define MORE_LANGUAGES		// Add more translations to the game
+#define MORE_LANGUAGES		// Add more translations to the game
 #define COMPATIBLE_SAVES // this allows changing structs while keeping saves compatible
 #define LOAD_INI_SETTINGS // as the name suggests. fundamental for CUSTOM_FRONTEND_OPTIONS
 #define FIX_HIGH_FPS_BUGS_ON_FRONTEND
+
+#define NO_MOVIES	// add option to disable intro videos
 
 #if defined(__LP64__) || defined(_WIN64)
 #define FIX_BUGS_64 // Must have fixes to be able to run 64 bit build
@@ -274,15 +275,15 @@ enum Config {
 #define USE_TXD_CDIMAGE		// generate and load textures from txd.img
 #define PS2_ALPHA_TEST		// emulate ps2 alpha test 
 #define IMPROVED_VIDEOMODE	// save and load videomode parameters instead of a magic number
-#define DISABLE_LOADING_SCREEN // disable the loading screen which vastly improves the loading time
+//#define DISABLE_LOADING_SCREEN // disable the loading screen which vastly improves the loading time
 #define DISABLE_VSYNC_ON_TEXTURE_CONVERSION // make texture conversion work faster by disabling vsync
 #define ANISOTROPIC_FILTERING	// set all textures to max anisotropic filtering
 //#define USE_TEXTURE_POOL
 #ifdef LIBRW
 #define EXTENDED_COLOURFILTER		// more options for colour filter (replaces mblur)
-#define EXTENDED_PIPELINES		// custom render pipelines (includes Neo)
-#define SCREEN_DROPLETS			// neo water droplets
-#define NEW_RENDERER		// leeds-like world rendering, needs librw
+//#define EXTENDED_PIPELINES		// custom render pipelines (includes Neo)
+//#define SCREEN_DROPLETS			// neo water droplets
+//#define NEW_RENDERER		// leeds-like world rendering, needs librw
 #endif
 
 #define FIX_SPRITES	// fix sprites aspect ratio(moon, coronas, particle etc)
@@ -336,9 +337,9 @@ enum Config {
 
 #	ifdef CUSTOM_FRONTEND_OPTIONS
 #		define GRAPHICS_MENU_OPTIONS // otherwise Display settings will be scrollable
-#		define NO_ISLAND_LOADING  // disable loadscreen between islands via loading all island data at once, consumes more memory and CPU
+//#		define NO_ISLAND_LOADING  // disable loadscreen between islands via loading all island data at once, consumes more memory and CPU
 #		define CUTSCENE_BORDERS_SWITCH
-#		define MULTISAMPLING		// adds MSAA option
+//#		define MULTISAMPLING		// adds MSAA option
 #		define INVERT_LOOK_FOR_PAD // enable the hidden option
 #	endif
 #endif
